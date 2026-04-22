@@ -68,7 +68,7 @@ def main():
     curr_turn = "Engine" if args.engine_starts_first else "Player"
     
     while not board.is_game_over():
-        position_fen = board.fen()
+        
         pretty_print_board(board)
         
         if curr_turn == "Player":
