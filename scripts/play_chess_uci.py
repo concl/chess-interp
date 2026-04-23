@@ -23,16 +23,6 @@ parser.add_argument(
     help="If set, the engine will make the first move.",
 )
 
-def pretty_print_board(board):
-    
-    for rank in range(8, 0, -1):
-        row = ""
-        for file in range(1, 9):
-            square = chess.square(file - 1, rank - 1)
-            piece = board.piece_at(square)
-            row += str(piece) if piece else "."
-            row += " "
-        print(row)
     
 def main():
     
@@ -68,8 +58,9 @@ def main():
     curr_turn = "Engine" if args.engine_starts_first else "Player"
     
     while not board.is_game_over():
-        
-        pretty_print_board(board)
+        position_fen = board.fen()
+        print("\nCurrent position:")
+        print(board)
         
         if curr_turn == "Player":
             move = input("Enter your move (in UCI format, e.g., e2e4): ")
@@ -86,18 +77,18 @@ def main():
         else:
             # Send the current position to the engine
             engine_process.stdin.write(f"position fen {board.fen()}\n")
-            engine_process.stdin.write("go\n")
+            engine_process.stdin.write("go depth 10\n")
             engine_process.stdin.flush()
             
             # Read the engine's move
             while True:
                 line = engine_process.stdout.readline().strip()
                 if line.startswith("bestmove"):
-                    _, best_move = line.split()
+                    output = line.split()
+                    best_move = output[1]
                     chess_move = chess.Move.from_uci(best_move)
                     board.push(chess_move)
                     print(f"Engine moves: {best_move}")
-                    print(board)
                     curr_turn = "Player"
                     break
 
