@@ -25,8 +25,6 @@ play_chess.py
 - [Stanford NLP lecture: intro to probing](https://www.youtube.com/watch?v=ElDtkhqv5ZE)
 - [Probing slides](https://docs.google.com/presentation/d/1vUKiuV3jKJ_Un9CJTO33IBpMd2dDdPSbVzH2qnil7cg/edit?usp=sharing)
 
-Week 3: Introduction to Mech Interp, Linear probes, Game board models 
-
 - Introduction to Mech Interp
     - Like neuroscience for neural networks, we want to understand what goes on inside ML models - how and why they work.
 - Linear probes
@@ -41,6 +39,13 @@ Week 3: Introduction to Mech Interp, Linear probes, Game board models
         - Othello and Chess are two big examples.
 
 ### Week 4:
+
+Colab Links:
+- [MLE notebook](https://colab.research.google.com/drive/1-dJ2DDmrdDL082NUPak9NpLMtmT7p0TK?usp=sharing)
+    - [MLE solution](https://colab.research.google.com/drive/111DTxOYDZa3fYO7aXixVxb-zickqFpXz?usp=sharing)
+- [LC0 notebook](https://colab.research.google.com/drive/14S6CqTzv9gKQultecLUm72EVPvlkLPii?usp=sharing)
+    - [LC0 solution](https://colab.research.google.com/drive/1NIRcZjVStHYM0HUrxey0lOcbgrkaeYzX?usp=sharing)
+
 
 Split into groups (MLE vs. AI Safety), Build out starter code 
 
