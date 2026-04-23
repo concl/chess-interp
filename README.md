@@ -2,6 +2,8 @@ During this project we will be exploring mechanistic interpretability on board g
 
 "Mechanistic Interpretability" (Mech Interp) is like doing neuroscience on AI. Instead of just looking at the final move an AI plays, we look at its internal "thoughts" (the high-dimensional vectors/activations, inside its hidden layers).
 
+Our work will be roughly follow and build upon this: https://leela-interp.github.io/
+
 Contents:
 
 lc0_dist/
