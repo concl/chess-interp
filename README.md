@@ -27,10 +27,7 @@ play_chess.py
 
 Week 3: Introduction to Mech Interp, Linear probes, Game board models 
 
-- Icebreaker
-    - Introduce ourselves (year, major) and ask project members to do the same.
-    - What other major would you be (not your current one)?
-- Introduce Mech Interp
+- Introduction to Mech Interp
     - Like neuroscience for neural networks, we want to understand what goes on inside ML models - how and why they work.
 - Linear probes
     - What are they? How do they work?
@@ -48,7 +45,6 @@ Week 3: Introduction to Mech Interp, Linear probes, Game board models
 Split into groups (MLE vs. AI Safety), Build out starter code 
 
 - If we can port lc0 directly to PyTorch, we can use PyTorch as the backend.
-- Icebreaker: question of the day
 - Split into groups
     - Give a few minutes for everyone to decide between groups
     - MLE (fine-tuning an existing GPT/chat model to play chess and output valid moves with a `<CHESS>` token)
