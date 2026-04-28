@@ -6,7 +6,13 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "chess>=1.11.2",
+    "einops>=0.8.2",
     "grpcio-tools>=1.60",
+    "iceberg>=0.4",
+    "matplotlib>=3.10.9",
+    "onnx>=1.21.0",
+    "onnx2torch>=1.5.15",
+    "pandas>=3.0.2",
     "protobuf>=5",
     "torch>=2.11.0",
     "torchvision>=0.26.0",

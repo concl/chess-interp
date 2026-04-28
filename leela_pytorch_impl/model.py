@@ -10,8 +10,8 @@ import onnx2torch
 import torch
 from einops import rearrange
 
-from .forward_pass_implementation import forward as modified_forward
-from .leela_board import LeelaBoard
+from forward_pass_implementation import forward as modified_forward
+from leela_board import LeelaBoard
 
 
 class Lc0Model(torch.nn.Module):

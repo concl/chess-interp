@@ -23,21 +23,26 @@ parser.add_argument(
     help="If set, the engine will make the first move.",
 )
 
-    
+# Pass arbitrary extra arguments to the engine
+# (Alternatively, parsing known args in main() accomplishes this)
+
 def main():
     
-    args = parser.parse_args()
+    args, unknown_args = parser.parse_known_args()
     
     if args.engine_path.endswith(".py"):
         interpreter_path = sys.executable
-        args.engine_path = [interpreter_path, args.engine_path]
+        args.engine_path = [interpreter_path, "-u", args.engine_path] + unknown_args
+    else:
+        args.engine_path = [args.engine_path] + unknown_args
     
+    print(f"Starting UCI engine from: {args.engine_path}")
     # Start the UCI engine process
     engine_process = subprocess.Popen(
         args.engine_path,
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
         text=True,
     )
     
@@ -50,6 +55,8 @@ def main():
         line = engine_process.stdout.readline().strip()
         if line == "uciok":
             break
+        elif line != "":
+            print(f"Engine output during initialization: {line}")
     
     # Set up the chess board
     board = chess.Board(args.starting_fen) if args.starting_fen else chess.Board()
