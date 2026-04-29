@@ -17,6 +17,15 @@ leela_pytorch_impl/
 play_chess.py
 
 - script to play against a given chess program that works with the UCI interface
+- run the following command to play chess against the raw leela chess network:
+```
+python scripts/play_chess_uci.py leela_pytorch_impl/leela_model_uci_bot.py --use_probabilities
+```
+- run this command to play chess against the raw leela chess network in a gui:
+```
+python scripts/play_chess_gui.py leela_pytorch_impl/leela_model_uci_bot.py --use_probabilities
+```
+- Note that you need to download "lco-original.onnx" from https://figshare.com/s/adc80845c00b67c8fce5 into leela_pytorch_impl/
 
 ## schedule
 
