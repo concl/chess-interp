@@ -1,3 +1,6 @@
+
+# Mechanistic Interpretability with Chess Models
+
 During this project we will be exploring mechanistic interpretability on board game models.
 
 "Mechanistic Interpretability" (Mech Interp) is like doing neuroscience on AI. Instead of just looking at the final move an AI plays, we look at its internal "thoughts" (the high-dimensional vectors/activations, inside its hidden layers).
@@ -99,3 +102,8 @@ For ease of development (and access to free-tier GPUs) we’ll likely use Google
 - If local/running on CPU is good enough, we can leave it in the Github.
     - Officers (before next meeting) will try to move all of the completed colab code into the Github - easier to debug and track changes.
 - Otherwise, use the servers (see about getting project members server access if necessary).
+
+
+### Week 6
+
+- NNsight: https://nnsight.net/getting-started/quickstart/
