@@ -99,3 +99,8 @@ For ease of development (and access to free-tier GPUs) we’ll likely use Google
 - If local/running on CPU is good enough, we can leave it in the Github.
     - Officers (before next meeting) will try to move all of the completed colab code into the Github - easier to debug and track changes.
 - Otherwise, use the servers (see about getting project members server access if necessary).
+
+
+### Week 6
+
+- NNsight: https://nnsight.net/getting-started/quickstart/
