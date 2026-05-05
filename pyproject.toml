@@ -11,6 +11,7 @@ dependencies = [
     "grpcio-tools>=1.60",
     "iceberg>=0.4",
     "matplotlib>=3.10.9",
+    "nnsight>=0.7.0",
     "onnx>=1.21.0",
     "onnx2torch>=1.5.15",
     "pandas>=3.0.2",
