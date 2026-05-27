@@ -6,9 +6,10 @@ from dataclasses import dataclass, field
 from typing import Literal
 
 
-PositionPolicy = Literal["all_plies", "final_ply"]
+# PositionPolicy can only be these strings
+PositionPolicy = Literal["all_plies", "final_ply"] 
 
-
+# immutable struct 
 @dataclass(frozen=True)
 class ModelConfig:
     """Model and adapter settings.

@@ -169,6 +169,8 @@ def tokenize_dataset(
     *,
     mapper: DirectTokenMapper,
     config: DataConfig,
+    show_progress: bool = False,
+    progress_desc: str = "Tokenizing games",
 ) -> "Dataset":
     """Convert a raw PGN dataset into model-ready supervised examples."""
 
@@ -176,6 +178,11 @@ def tokenize_dataset(
 
     examples: list[dict[str, list[int]]] = []
     game_texts = iter_game_texts(row[config.text_column] for row in dataset)
+    if show_progress:
+        from tqdm.auto import tqdm
+
+        game_texts = tqdm(game_texts, desc=progress_desc, unit="game")
+
     for game_text in game_texts:
         game = read_game(game_text)
         if game is None:
