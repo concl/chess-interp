@@ -341,7 +341,14 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Disable tqdm progress bars for dataset tokenization and training.",
     )
-    return parser.parse_args()
+    parser.add_argument(
+        "--local_rank",
+        type=int,
+        default=-1,
+        help=argparse.SUPPRESS,
+    )
+    args, _ = parser.parse_known_args()
+    return args
 
 
 if __name__ == "__main__":
