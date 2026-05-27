@@ -6,9 +6,9 @@ Transformers checkpoint such as ``Qwen/Qwen3.5-9B`` first, then export or
 quantize the result to GGUF after training if local llama.cpp inference is the
 goal.
 
-Example single-node launch:
+Example single-node launch (from repo root):
 
-    deepspeed --num_gpus 4 -m gpt_chess.train_deepspeed_qwen_demo \
+    deepspeed --num_gpus 4 --module gpt_chess.train_deepspeed_qwen_demo \
         --model-id Qwen/Qwen3.5-9B \
         --dataset-split "train[:500]" \
         --output-dir models/chess_qwen35_9b_lora
@@ -21,9 +21,15 @@ For a quick wiring check without downloading a 9B model:
 from __future__ import annotations
 
 import argparse
+import sys
 from dataclasses import replace
 from pathlib import Path
 from typing import Any
+
+# DeepSpeed may launch this file by path; ensure repo root is importable.
+_REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
 
 from gpt_chess.config import DataConfig, ModelConfig, TrainerConfig
 from gpt_chess.data import tokenize_dataset
@@ -257,7 +263,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model-id", default=DEFAULT_QWEN_MODEL_ID)
     parser.add_argument("--output-dir", default="models/chess_qwen35_9b_lora")
     parser.add_argument("--dataset-name", default="patrickfrank1/chess-pgn-games")
-    parser.add_argument("--dataset-split", default="train[:100]")
+    parser.add_argument("--dataset-split", default="train[:1000]")
     parser.add_argument(
         "--position-policy",
         choices=["all_plies", "final_ply"],
