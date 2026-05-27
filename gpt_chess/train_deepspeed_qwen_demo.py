@@ -6,9 +6,11 @@ Transformers checkpoint such as ``Qwen/Qwen3.5-9B`` first, then export or
 quantize the result to GGUF after training if local llama.cpp inference is the
 goal.
 
+Install deps first: ``uv sync`` (includes the ``deepspeed`` CLI).
+
 Example single-node launch (from repo root):
 
-    deepspeed --num_gpus 4 --module gpt_chess.train_deepspeed_qwen_demo \
+    uv run deepspeed --num_gpus 4 --module gpt_chess.train_deepspeed_qwen_demo \
         --model-id Qwen/Qwen3.5-9B \
         --dataset-split "train[:500]" \
         --output-dir models/chess_qwen35_9b_lora

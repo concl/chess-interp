@@ -8,6 +8,7 @@
 accelerate>=1.13.0
 chess>=1.11.2
 datasets>=4.8.5
+deepspeed>=0.16.0
 einops>=0.8.2
 grpcio-tools>=1.60
 huggingface-hub>=1.12.0
