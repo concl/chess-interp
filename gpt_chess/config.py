@@ -51,6 +51,7 @@ class TrainerConfig:
     optim: str = "adamw_torch"
     report_to: str = "none"
     save_strategy: str = "no"
+    deepspeed_config: str = "gpt_chess/ds_config.json"
 
 
 @dataclass(frozen=True)

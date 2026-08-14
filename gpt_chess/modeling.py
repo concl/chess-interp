@@ -120,7 +120,8 @@ def load_adapter_model(
     resize_embeddings_if_needed(model, tokenizer)
     model.config.pad_token_id = tokenizer.pad_token_id
 
-    model = PeftModel.from_pretrained(model, adapter_dir)
+    model = PeftModel.from_pretrained(model, adapter_dir, ignore_mismatched_sizes = True)
+    resize_embeddings_if_needed(model, tokenizer)
     if device is not None:
         model = model.to(device)
     model.eval()

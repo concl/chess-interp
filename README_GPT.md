@@ -43,10 +43,32 @@ uv run python -m gpt_chess.train \
   --output-dir chess_model
 ```
 
+Use deepspeed to train the model in parallel:
+
+\(recommended\)
+```
+export TRITON_CACHE_DIR=/tmp/triton_cache
+```
+
+```bash
+uv run deepspeed --module gpt_chess.train \
+  --model-id gpt2 \
+  --dataset-split "train[:500]" \
+  --output-dir chess_model \
+  --deepspeed-config gpt_chess/ds_config.json
+```
+
 Train a different Hugging Face causal LM by changing `--model-id`:
 
 ```bash
 uv run python -m gpt_chess.train \
+  --model-id Qwen/Qwen2.5-0.5B \
+  --dataset-split "train[:500]" \
+  --output-dir chess_model_qwen25
+```
+
+```bash
+uv run deepspeed --module gpt_chess.train \
   --model-id Qwen/Qwen2.5-0.5B \
   --dataset-split "train[:500]" \
   --output-dir chess_model_qwen25

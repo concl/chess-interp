@@ -17,8 +17,10 @@ from gpt_chess.config import (
 from gpt_chess.data import tokenize_dataset
 from gpt_chess.modeling import attach_lora_adapter, load_base_model_and_tokenizer
 
+import deepspeed
+import torch
 
-def train(config: ExperimentConfig = DEFAULT_CONFIG):
+def train(config: ExperimentConfig = DEFAULT_CONFIG, deepspeed_config: str | None = None):
     """Run the configured fine-tuning job and save the model/tokenizer."""
 
     from datasets import load_dataset
@@ -47,6 +49,7 @@ def train(config: ExperimentConfig = DEFAULT_CONFIG):
         optim=config.trainer.optim,
         report_to=config.trainer.report_to,
         save_strategy=config.trainer.save_strategy,
+        deepspeed=config.trainer.deepspeed_config
     )
     data_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, padding=True)
 
@@ -100,15 +103,36 @@ def parse_args() -> argparse.Namespace:
         type=float,
         default=DEFAULT_CONFIG.trainer.learning_rate,
     )
+    parser.add_argument(
+        "--local_rank", 
+        type=int, 
+        default=0, 
+        help="Local rank passed by distributed launcher"
+    )
+    parser.add_argument(
+        "--deepspeed-config",
+        default=None,
+        help="Path to a DeepSpeed config JSON file. Omit to disable DeepSpeed.",
+    )
     return parser.parse_args()
 
 
 def config_from_args(args: argparse.Namespace) -> ExperimentConfig:
+    lora_attention_modules = None
+
+    if args.model_id == "gpt2":
+        lora_attention_modules = ("c_attn", "c_proj")
+    elif args.model_id == "Qwen/Qwen2.5-0.5B":
+        lora_attention_modules = ("q_proj", "k_proj", "v_proj", "o_proj")
+    elif not args.no_lora:
+        raise f"{args.model_id} is not supported with lora, check for a typo or run w/ --no-lora instead"
+
     model = replace(
         ModelConfig(),
         model_id=args.model_id,
         output_dir=args.output_dir,
         use_lora=not args.no_lora,
+        lora_target_modules=lora_attention_modules
     )
     data = replace(
         DataConfig(),
@@ -122,10 +146,16 @@ def config_from_args(args: argparse.Namespace) -> ExperimentConfig:
         num_train_epochs=args.epochs,
         per_device_train_batch_size=args.batch_size,
         learning_rate=args.learning_rate,
+        deepspeed_config=args.deepspeed_config,
     )
     return ExperimentConfig(model=model, data=data, trainer=trainer)
 
 
 if __name__ == "__main__":
-    train(config_from_args(parse_args()))
+    args = parse_args()
+    train(config_from_args(args))
+    if deepspeed.comm.is_initialized():
+        deepspeed.comm.barrier()
 
+    if torch.distributed.is_initialized():
+        torch.distributed.destroy_process_group()
